@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }));
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wavxy18.mongodb.net/Mystore?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
