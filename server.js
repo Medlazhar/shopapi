@@ -55,6 +55,10 @@ const record = new dta_all({
   Username:req.body.username,
   Password:req.body.password,
   isAdmin:"false"
+  name:req.body.name,
+  birthday:req.body.birthday,
+  phone:req.body.phone,
+  adress:req.body.adress,
 
 })
 const succeed = await record.save();
