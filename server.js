@@ -45,7 +45,7 @@ app.get("/account",async(req,res)=>{
 // delete record 
 app.post("/delete_user",async(req,res)=>{
 try {
-  const id = req.body
+  const {id}= req.body
         const deletedUser = await User.findByIdAndDelete(id);
         
         if (!deletedUser) {
