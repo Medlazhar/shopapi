@@ -43,10 +43,10 @@ app.get("/account",async(req,res)=>{
 })
 
 // delete record 
-app.delete("/user/:id",async(req,res)=>{
+app.post("/delete_user",async(req,res)=>{
 try {
-  res.json(req.params.id)
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
+  const id = req.body
+        const deletedUser = await User.findByIdAndDelete(id);
         
         if (!deletedUser) {
             return res.status(404).json({ message: "العنصر المراد حذفه غير موجود" , success: "false"});
