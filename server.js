@@ -44,6 +44,7 @@ app.get("/account",async(req,res)=>{
 
 // delete record 
 app.post("/delete_user",async(req,res)=>{
+   const dta_all=require("./models/User")
 try {
   const {id}= req.body
         const deletedUser = await dta_all.findByIdAndDelete(id);
