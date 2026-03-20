@@ -25,10 +25,7 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
 
  const op=require("./models/User")
 
-app.get("/message",async(req,res)=>{
-  res.send("connected");
 
-});
 
 app.get("/account",async(req,res)=>{
   
@@ -54,7 +51,7 @@ app.post("/insert_records",async(req,res)=>{
 const record = new dta_all({
   Username:req.body.username,
   Password:req.body.password,
-  isAdmin:"false"
+  isAdmin:"false",
   name:req.body.name,
   birthday:req.body.birthday,
   phone:req.body.phone,
