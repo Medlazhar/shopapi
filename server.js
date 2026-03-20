@@ -46,7 +46,7 @@ app.get("/account",async(req,res)=>{
 app.post("/delete_user",async(req,res)=>{
 try {
   const {id}= req.body
-        const deletedUser = await User.findByIdAndDelete(id);
+        const deletedUser = await dta_all.findByIdAndDelete(id);
         
         if (!deletedUser) {
             return res.status(404).json({ message: "العنصر المراد حذفه غير موجود" , success: "false"});
