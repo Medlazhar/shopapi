@@ -41,6 +41,33 @@ app.get("/account",async(req,res)=>{
     console.log(err)
   }
 })
+
+// delete record 
+app.delete("/user/:id",async(req,res)=>{
+try {
+  res.json(req.params.id)
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        
+        if (!deletedUser) {
+            return res.status(404).json({ message: "العنصر المراد حذفه غير موجود" , success: "false"});
+        }
+        
+        res.status(200).json({ message: "تمت عملية الحذف بنجاح", success: "true" });
+    } catch (error) {
+        res.status(500).json({ message: " حدث خطاء في العملية ", success: "error" });
+    }
+
+})
+
+
+
+
+
+
+
+
+
+
 // insert data in mongo atlas****************************************************
 app.post("/insert_records",async(req,res)=>{
   try{
