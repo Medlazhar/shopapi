@@ -78,8 +78,8 @@ app.get("/operations",async(req,res)=>{
 //********************************************************************************************
 app.post("/one_operations",async(req,res)=>{
 try{
- const op_filter = req.body;
- var operations= await new_tayseer_op.find({Username:req.body.username})
+ const {username}= req.body;
+ var operations= await new_tayseer_op.find({Username:username})
   
     res.json(operations)
   }catch(err){
