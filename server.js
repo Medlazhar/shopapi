@@ -27,6 +27,34 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
 const new_tayseer_op = require("./models/new_operation");
 
 
+
+
+// new operation 
+app.post("/new_operation",async(req,res)=>{
+  try{
+   
+const record = new new_tayseer_op({
+  Username:req.body.username,
+  op_date:req.body.op_date,
+
+  op_time:req.body.op_time,
+  caisse:req.body.caisse,
+  op_endtime:req.body.op_endtime,
+  op_worktime:req.body.op_worktime,
+
+})
+const succeed = await record.save();
+if(succeed){
+res.status(201).json({message:"تمت الاظافة بنجاح"})
+}else{
+  res.status(500).json({message:"error to insert record"})
+}
+    }catch(err){
+res.status(501).json({message:err})
+  }
+})
+//*************************************************************************
+
 app.get("/account",async(req,res)=>{
   
   try{
