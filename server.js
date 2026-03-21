@@ -24,7 +24,7 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
  const dta_all=require("./models/User")
 
  const op=require("./models/User")
-
+const new_tayseer_op = require("./models/new_operation");
 
 
 app.get("/account",async(req,res)=>{
