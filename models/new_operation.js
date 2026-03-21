@@ -10,4 +10,4 @@ const operations = new mongoose.Schema({
   
 });
 
-module.exports = mongoose.model('data',operations,"operation")
+module.exports = mongoose.model('op',operations,"operation")
