@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
 const operations = new mongoose.Schema({
   Username: String,
-  op_date: String,
-  op_time: String,
+  op_bigin: String,
+  op_end: String,
   caisse:String,
-  op_endtime:String,
-  op_worktime:String,
+ 
  
   
 });
 
-module.exports = mongoose.model('op',operations,"operation")
+module.exports = mongoose.model('op',operations,"operations")
