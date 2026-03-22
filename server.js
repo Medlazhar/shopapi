@@ -13,6 +13,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }));
+
+
+// ******************************************** الاتصال بقاعدة البيانات  ********************************************************
 mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wavxy18.mongodb.net/Mystore?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
@@ -20,12 +23,42 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
     
 
 
-
+//**************************************  تعريف الموديلات ************************************
 
  const dta_all=require("./models/User")
 
  const op=require("./models/User")
 const new_tayseer_op = require("./models/new_operation");
+const new_tayseer_msg = require("./models/new_message");
+
+// ***************************** ارسال رسالة الى الادمن ********************************************
+app.post("/new_message",async(req,res)=>{
+  try{
+   
+        const record = new new_tayseer_msg({
+        Username:req.body.username,
+        msg_date:req.body.msg_date,
+        msg:req.body.msg,
+ 
+      })
+          const succeed = await record.save();
+                if(succeed){
+                                res.status(201).json({message:"تم ارسال الرسالة بنجاح"})
+                            }else{
+                                      res.status(500).json({message:"error to insert record"})
+                                    }
+    }catch(err){
+res.status(501).json({message:err})
+  }
+})
+//*************************************************************************
+
+
+
+
+
+
+
 
 
 
