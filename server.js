@@ -39,6 +39,7 @@ app.post("/new_message",async(req,res)=>{
         Username:req.body.username,
         msg_date:req.body.msg_date,
         msg:req.body.msg,
+          readed : "false"
  
       })
           const succeed = await record.save();
