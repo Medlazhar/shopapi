@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
 const sending_msg = new mongoose.Schema({
-Username:String,
-msg_date:String,
-  msg:String
+ Username:String,
+ msg_date:String,
+  msg:String,
+  readed:"false"
 
 })
 
