@@ -3,7 +3,7 @@ const sending_msg = new mongoose.Schema({
  Username:String,
  msg_date:String,
   msg:String,
-  readed:"false"
+  readed:String
 
 })
 
