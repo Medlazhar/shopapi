@@ -36,12 +36,11 @@ app.post("/new_operation",async(req,res)=>{
    
 const record = new new_tayseer_op({
   Username:req.body.username,
-  op_date:req.body.op_date,
+  op_bigin:req.body.op_date,
 
-  op_time:req.body.op_time,
+  op_end:req.body.op_time,
   caisse:req.body.caisse,
-  op_endtime:req.body.op_endtime,
-  op_worktime:req.body.op_worktime,
+ 
 
 })
 const succeed = await record.save();
