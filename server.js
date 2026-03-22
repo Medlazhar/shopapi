@@ -55,7 +55,17 @@ res.status(501).json({message:err})
 //*************************************************************************
 
 
-
+// get all messages 
+app.get("/messages",async(req,res)=>{
+    try{
+ 
+ var operations= await new_tayseer_msg.find({})
+  
+    res.json(operations)
+  }catch(err){
+    console.log(err)
+  }
+})
 
 
 
