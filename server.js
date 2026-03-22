@@ -36,9 +36,9 @@ app.post("/new_operation",async(req,res)=>{
    
 const record = new new_tayseer_op({
   Username:req.body.username,
-  op_bigin:req.body.op_date,
+  op_bigin:req.body.op_bigin,
 
-  op_end:req.body.op_time,
+  op_end:req.body.op_end,
   caisse:req.body.caisse,
  
 
