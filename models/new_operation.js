@@ -4,6 +4,7 @@ const operations = new mongoose.Schema({
   op_bigin: String,
   op_end: String,
   caisse:String,
+  worktime:String
  
  
   
