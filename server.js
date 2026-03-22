@@ -40,6 +40,7 @@ const record = new new_tayseer_op({
 
   op_end:req.body.op_end,
   caisse:req.body.caisse,
+  worktime = req.body.worktime
  
 
 })
