@@ -31,6 +31,39 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
 const new_tayseer_op = require("./models/new_operation");
 const new_tayseer_msg = require("./models/new_message");
 
+// ***************************** تحديث قراءة الرسالة *****************************
+
+app.post("/update_readed",async (req,res)=>{
+const my_id = req.body;
+  const update_value = await new_tasyeer_msg.findById(my_id)
+  if(update_value){
+ update_value.readed = "true";
+  update_value.save();
+       res.status(201).json({message:"تم التحديث بنجاح"})
+  } else {
+    res.status(500).json({message:"العنصر غير موجود"})
+  }
+ 
+
+
+})
+
+//****************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ***************************** ارسال رسالة الى الادمن ********************************************
 app.post("/new_message",async(req,res)=>{
   try{
