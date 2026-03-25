@@ -35,7 +35,7 @@ const new_tayseer_msg = require("./models/new_message");
 
 app.post("/update_readed",async (req,res)=>{
 const my_id = req.body.id;
-  const update_value = await new_tasyeer_msg.findById(my_id)
+  const update_value = await new_tayseer_msg.findById(my_id)
   if(update_value){
  update_value.readed = "true";
   update_value.save();
