@@ -51,7 +51,7 @@ const my_id = req.body.id;
 //****************************************************************************
 
 // remove messages 
-router.post('/remove_msg', async (req, res) => {
+app.post('/remove_msg', async (req, res) => {
     try {
         const deletedUser = await new_tayseer_msg.findByIdAndDelete(req.body.id);
         
