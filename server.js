@@ -54,9 +54,9 @@ const my_id = req.body.id;
 
 app.post("/update_record",async (req,res)=>{
 
-  const {rec_id,rec_user,rec_pass,rec_birth,rec_adress,rec_phone,rec_name,rec_isAdmine} = req.body;
+  const {rec_id,rec_user,rec_pass,rec_birth,rec_adress,rec_phone,rec_name,rec_isAdmin} = req.body;
 
-  const update_value = await new_tayseer_msg.findById(rec_id)
+  const update_value = await op.findById(rec_id)
   if(update_value){
  update_value.Username= rec_user;
     update_value.Password= rec_pass;
