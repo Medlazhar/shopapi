@@ -50,6 +50,50 @@ const my_id = req.body.id;
 
 //****************************************************************************
 
+// ***************************** تحديث قراءة الرسالة *****************************
+
+app.post("/update_record",async (req,res)=>{
+
+  const {rec_id,rec_user,rec_pass,rec_birth,rec_adress,rec_phone,rec_name,rec_isAdmine} = req.body;
+
+  const update_value = await new_tayseer_msg.findById(rec_id)
+  if(update_value){
+ update_value.Username= rec_user;
+    update_value.Password= rec_pass;
+    update_value.isAdmin= rec_isAdmin;
+    update_value.adress= rec_adress;
+    update_value.phone= rec_phone;
+    update_value.birthday= rec_birth;
+      update_value.name= rec_name;
+  update_value.save();
+       res.status(201).json({message:"تم التحديث بنجاح"})
+  } else {
+    res.status(500).json({message:"العنصر غير موجود"})
+  }
+ 
+
+
+})
+
+//****************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // remove messages 
 app.post('/remove_msg', async (req, res) => {
     try {
