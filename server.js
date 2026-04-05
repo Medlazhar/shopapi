@@ -58,13 +58,13 @@ app.post("/update_record",async (req,res)=>{
 
   const update_value = await dta_all.findById(req.body.id)
   if(update_value){
- update_value.Username= da.username;
-    update_value.Password= da.password;
-    update_value.isAdmin= da.isAdmin;
-    update_value.adress= da.adress;
-    update_value.phone= da.phone;
-    update_value.birthday= da.birthday;
-      update_value.name= da.name;
+ update_value.Username= req.body.username;
+    update_value.Password= req.body.password;
+    update_value.isAdmin= req.body.isAdmin;
+    update_value.adress= req.body.adress;
+    update_value.phone= req.body.phone;
+    update_value.birthday= req.body.birthday;
+      update_value.name= req.body.name;
   update_value.save();
        res.status(201).json({message:"تم التحديث بنجاح"})
   } else {
