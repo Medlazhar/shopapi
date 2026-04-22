@@ -109,6 +109,20 @@ app.post('/remove_msg', async (req, res) => {
     }
 });
 
+// remove operation 
+app.post('/remove_op', async (req, res) => {
+    try {
+        const deletedUser = await new_tayseer_op.findByIdAndDelete(req.body.id);
+        
+        if (!deletedUser) {
+            return res.status(404).json({ message: "العملية غير موجودة" });
+        }
+        
+        res.status(200).json({ message: "تم الحذف بنجاح", data: deletedUser });
+    } catch (error) {
+        res.status(500).json({ message: "حدث خطاء في السيرفر", error: error.message });
+    }
+});
 
 
 
