@@ -379,6 +379,65 @@ app.post('/login', async (req, res) => {
   }
 
 });
+
+
+
+
+
+// import models and send ussd code
+const usdmsg = require("./models/ussd_msg");
+app.post('/ussd_code', async(req, res) => {
+    const data = req.body.ussd_command; 
+    const new_ussd_code = await usdmsg.findOne();
+    if (new_ussd_code) {
+       new_ussd_code.ussd_command = data;
+        new_ussd_code.status = "pending";
+        await new_ussd_code.save();
+    } 
+    console.log('Received data:', data);
+    res.status(200).json({ message: 'ussd_code  updated successfully'});
+});
+
+
+// update ussd response
+app.post('/update_response', async(req, res) => {
+    const data = req.body.response; 
+    const new_ussd_code = await usdmsg.findOne();
+    if (new_ussd_code) {
+       new_ussd_code.response = data;
+        new_ussd_code.status = "completed";
+        await new_ussd_code.save();
+    }
+    console.log('Received data:', data);
+    res.status(200).json({ message: 'response updated successfully'});
+});
+
+
+// update ussd status
+app.post('/update_status', async(req, res) => {
+    const data = req.body.status; 
+    const new_ussd_code = await usdmsg.findOne(); 
+    if (new_ussd_code) {
+       new_ussd_code.status = data;
+        await new_ussd_code.save();
+    }
+    console.log('Received data:', data);
+    res.status(200).json({ message: 'status updated successfully'});
+});
+
+
+// get all ussd messages
+app.get('/ussd_messages', async(req, res) => {
+    try {
+        const messages = await usdmsg.find();
+        res.json(messages);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error retrieving messages' });
+    } 
+
+  });
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
