@@ -80,8 +80,8 @@ app.post("/update_record",async (req,res)=>{
 // *********************************جزء خاص بتطبيق نقاطي ***************************
 
 app.post("/check_NikatiUser",async (req,res)=>{
-
-  const Users_Nikati =  await nikati_users.find(req.body.email);
+const {email}=req.body;
+  const Users_Nikati =  await nikati_users.find({email});
   if(Users_Nikati){
     
    res.status(201).json({success :"yes"});
