@@ -81,7 +81,7 @@ app.post("/update_record",async (req,res)=>{
 
 app.post("/check_NikatiUser",async (req,res)=>{
 const {email}=req.body;
-  const Users_Nikati =  await nikati_users.find(req.dody.email);
+  const Users_Nikati =  await nikati_users.find(email);
   if(Users_Nikati){
     
    res.status(201).json({success :Users_Nikati});
