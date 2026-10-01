@@ -79,7 +79,7 @@ app.post("/update_record",async (req,res)=>{
 //****************************************************************************
 // *********************************جزء خاص بتطبيق نقاطي ***************************
 
-app.post("/check_NikatiUser",(req,res)=>{
+app.post("/check_NikatiUser",async (req,res)=>{
 
   const Users_Nikati =  await nikati_users.find(req.body.email);
   if(Users_Nikati){
