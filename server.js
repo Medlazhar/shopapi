@@ -84,9 +84,9 @@ const {email}=req.body;
   const Users_Nikati =  nikati_users.find(email);
   if(Users_Nikati){
     
-   res.status(201).json({success :"yes"})
+   res.status(201).json({success :"yes"});
   } else{
-   res.status(201).json({success :"no"})
+   res.status(500).json({success :"no"});
 
   }
 
