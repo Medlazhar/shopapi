@@ -30,6 +30,7 @@ mongoose.connect("mongodb+srv://medlazhar15_db_user:cwQwI5SwZApw3h83@cluster0.wa
  const op=require("./models/User")
 const new_tayseer_op = require("./models/new_operation");
 const new_tayseer_msg = require("./models/new_message");
+const nikati_users = require("./models/nikati_user");
 
 // ***************************** تحديث قراءة الرسالة *****************************
 
@@ -79,7 +80,15 @@ app.post("/update_record",async (req,res)=>{
 // *********************************جزء خاص بتطبيق نقاطي ***************************
 
 app.post("/check_NikatiUser",(req,res)=>{
-const {email,android_id}=req.body;
+const {email}=req.body;
+  const Users_Nikati =  nikati_users.find(email);
+  if(Users_Nikati){
+    
+   res.status(201).json({success :"yes"})
+  } else{
+   res.status(201).json({success :"no"})
+
+  }
 
 
 
