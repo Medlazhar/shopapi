@@ -96,6 +96,14 @@ const {email,android_id}=req.body;
     
 
   } else{
+    const new_user = new Users_Nikati({
+email:req.body.email,
+      android_id:req.body.android_id,
+      is_verified : False,
+
+
+    });
+    const is_saved = new_user.save();
    res.status(500).json({is_verified :false});
 
   }
