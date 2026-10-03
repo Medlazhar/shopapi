@@ -79,14 +79,24 @@ app.post("/update_record",async (req,res)=>{
 //****************************************************************************
 // *********************************جزء خاص بتطبيق نقاطي ***************************
 
-app.post("/check_NikatiUser",async (req,res)=>{
-const {email}=req.body;
+app.post("/activation",async (req,res)=>{
+const {email,android_id}=req.body;
   const Users_Nikati =  await nikati_users.findOne({"email" : req.body.email});
   if(Users_Nikati){
+    if(Users_Nikati.android_id=="" && Users_Nikati.is_verified==true){
+           Users_Nikati.android_id=req.body.android_id;
+           Users_Nikati.save();
+           res.status(201).json({is_verified :true});
+    }
     
-   res.status(201).json({success :Users_Nikati});
+  if(Users_Nikati.android_id==req.body.android_id && Users_Nikati.is_verified==false){
+      
+   res.status(500).json({is_verified :false});
+    }
+    
+
   } else{
-   res.status(500).json({success :"no"});
+   res.status(500).json({is_verified :false});
 
   }
 
