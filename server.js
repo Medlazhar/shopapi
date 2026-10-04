@@ -93,18 +93,22 @@ const {email,android_id}=req.body;
       
    res.status(500).json({is_verified :false});
     }
-    
+
+      if(Users_Nikati.android_id!=req.body.android_id && Users_Nikati.is_verified==false){
+      
+   res.status(500).json({is_verified :false});
+    }
 
   } else{
     const new_user = new Users_Nikati({
-email:req.body.email,
+      email:req.body.email,
       android_id:req.body.android_id,
       is_verified : false,
 
 
     });
     const is_saved = new_user.save();
-   res.status(201).json({is_verified :false});
+   res.status(500).json({is_verified :false});
 
   }
 
