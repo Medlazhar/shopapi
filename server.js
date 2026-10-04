@@ -112,7 +112,10 @@ const {email,android_id}=req.body;
 
     });
     const is_saved = await new_user.save();
-   res.status(500).json({is_verified :false});
+    if(is_saved){
+         res.status(201).json({is_verified :false});
+    }
+   
 
   }
 
