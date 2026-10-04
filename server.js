@@ -103,8 +103,9 @@ const {email,android_id}=req.body;
    res.status(500).json({is_verified :false});
     }
 
-  } else{
-    const new_user = new Users_Nikati({
+  } 
+  if(!Users_Nikati){
+ const new_user = new Users_Nikati({
       email:req.body.email,
       android_id:req.body.android_id,
       is_verified : false,
@@ -118,6 +119,8 @@ const {email,android_id}=req.body;
    
 
   }
+  
+ 
 
 
 
