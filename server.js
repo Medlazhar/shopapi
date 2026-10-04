@@ -93,6 +93,10 @@ const {email,android_id}=req.body;
       
    res.status(500).json({is_verified :false});
     }
+ if(Users_Nikati.android_id==req.body.android_id && Users_Nikati.is_verified==true){
+      
+   res.status(201).json({is_verified :true});
+    }
 
       if(Users_Nikati.android_id!=req.body.android_id && Users_Nikati.is_verified==false){
       
