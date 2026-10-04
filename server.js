@@ -15,27 +15,6 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }));
 
 
-//*********************** خاص بتطبيق mongoConnect جلب احدث مسجل ******************************
-// -------------------------------------------------------------
-// مسار لجلب آخر المستخدمين المسجلين حديثاً
-// -------------------------------------------------------------
-app.get("/latest-users", async (req, res) => {
-  try {
-    // جلب آخر 5 مستخدمين تم إنشاؤهم مرتبين حسب التاريخ
-    const latestUsers = await NikatiUser.find()
-      .sort({ createdAt: -1 })
-      .limit(2);
-
-    return res.status(200).json({
-      success: true,
-      count: latestUsers.length,
-      users: latestUsers
-    });
-  } catch (error) {
-    console.error("خطأ أثناء جلب المستخدمين الجدد:", error);
-    return res.status(500).json({ success: false, message: "حدث خطأ في السيرفر" });
-  }
-});
 
 
 
@@ -204,7 +183,7 @@ app.post("/verify-user", async (req, res) => {
 app.get("/latest-users", async (req, res) => {
   try {
     // جلب آخر 5 مستخدمين تم إنشاؤهم مرتبين حسب التاريخ
-    const latestUsers = await NikatiUser.find()
+    const latestUsers = await nikati_users.find()
       .sort({ createdAt: -1 })
       .limit(5);
 
