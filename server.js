@@ -78,52 +78,54 @@ app.post("/update_record",async (req,res)=>{
 
 //****************************************************************************
 // *********************************جزء خاص بتطبيق نقاطي ***************************
+app.post("/activation", async (req, res) => {
+  try {
+    const { email, android_id } = req.body;
 
-app.post("/activation",async (req,res)=>{
-const {email,android_id}=req.body;
-  const Users_Nikati =  await nikati_users.findOne({"email" : req.body.email});
-  if(Users_Nikati){
-    if(Users_Nikati.android_id=="" && Users_Nikati.is_verified==true){
-           Users_Nikati.android_id=req.body.android_id;
-           Users_Nikati.save();
-           res.status(201).json({is_verified :true});
-    }
-    
-  if(Users_Nikati.android_id==req.body.android_id && Users_Nikati.is_verified==false){
-      
-   res.status(500).json({is_verified :false});
-    }
- if(Users_Nikati.android_id==req.body.android_id && Users_Nikati.is_verified==true){
-      
-   res.status(201).json({is_verified :true});
+    // التحقق من وجود البيانات الأساسية
+    if (!email || !android_id) {
+      return res.status(500).json({ is_verified: false, message: "بيانات الإدخال ناقصة" });
     }
 
-      if(Users_Nikati.android_id!=req.body.android_id && Users_Nikati.is_verified==false){
-      
-   res.status(500).json({is_verified :false});
+    // 1. البحث عن المستخدم بالبريد الإلكتروني
+    let user = await nikati_users.findOne({ email });
+
+    // 2. حالة عدم وجود الإيميل: إنشاء مستخدم جديد بـ is_verified: false
+    if (!user) {
+      const newUser = new nikati_users({
+        email,
+        android_id,
+        is_verified: false
+      });
+
+      await newUser.save();
+      return res.status(201).json({ is_verified: false, message: "تم تسجيل الحساب الجديد، بانتظار تفعيل الأدمن" });
     }
 
-  } 
-  if(!Users_Nikati){
- const new_user = new Users_Nikati({
-      email:req.body.email,
-      android_id:req.body.android_id,
-      is_verified : false,
-
-
-    });
-    const is_saved = await new_user.save();
-    if(is_saved){
-         res.status(201).json({is_verified :false});
+    // 3. الحساب غير مفعل (بغض النظر عن الجهاز)
+    if (!user.is_verified) {
+      return res.status(500).json({ is_verified: false, message: "الحساب غير مفعل بعد من طرف الأدمن" });
     }
-   
 
+    // 4. الحساب مفعل ولكن غير مركب على أي جهاز بعد (android_id فارغ) -> يتم ربط الجهاز والتفعيل
+    if (user.android_id === "") {
+      user.android_id = android_id;
+      await user.save();
+      return res.status(201).json({ is_verified: true, message: "تم ربط الجهاز وتفعيل التطبيق بنجاح" });
+    }
+
+    // 5. الحساب مفعل والجهاز مطابق -> تفعيل ناجح
+    if (user.android_id === android_id) {
+      return res.status(201).json({ is_verified: true, message: "تم التفعيل بنجاح" });
+    }
+
+    // 6. الحساب مفعل والجهاز غير مطابق -> رفض التفعيل
+    return res.status(500).json({ is_verified: false, message: "هذا الحساب مسجل على جهاز آخر" });
+
+  } catch (error) {
+    console.error("خطأ في السيرفر أثناء التفعيل:", error);
+    return res.status(500).json({ is_verified: false, message: "حدث خطأ داخلي في السيرفر" });
   }
-  
- 
-
-
-
 });
 
 
@@ -133,16 +135,7 @@ const {email,android_id}=req.body;
 
 
 
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 // remove messages 
 app.post('/remove_msg', async (req, res) => {
     try {
