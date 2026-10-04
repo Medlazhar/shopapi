@@ -129,7 +129,44 @@ app.post("/activation", async (req, res) => {
 });
 
 
+//************************* تفعيل البرنامج **************************************
+// مسار لتحديث حالة التفعيل من طرف الأدمن عبر البريد الإلكتروني
+app.post("/verify-user", async (req, res) => {
+  try {
+    const { email } = req.body;
 
+    // 1. التحقق من إرسال البريد الإلكتروني
+    if (!email) {
+      return res.status(500).json({ success: false, message: "يرجى توفير البريد الإلكتروني" });
+    }
+
+    // 2. البحث عن المستخدم وتحديث حالة is_verified إلى true
+    const updatedUser = await nikati_users.findOneAndUpdate(
+      { email: email },
+      { is_verified: true },
+      { new: true } // لإرجاع المستند بعد التحديث
+    );
+
+    // 3. في حالة عدم العثور على البريد الإلكتروني
+    if (!updatedUser) {
+      return res.status(500).json({ success: false, message: "البريد الإلكتروني غير مسجل في قاعدة البيانات" });
+    }
+
+    // 4. نجاح العملية
+    return res.status(201).json({
+      success: true,
+      message: "تم تفعيل الحساب بنجاح",
+      user: {
+        email: updatedUser.email,
+        is_verified: updatedUser.is_verified
+      }
+    });
+
+  } catch (error) {
+    console.error("خطأ أثناء تفعيل المستخدم:", error);
+    return res.status(500).json({ success: false, message: "حدث خطأ داخلي في السيرفر" });
+  }
+});
 
 
 
